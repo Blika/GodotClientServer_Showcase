@@ -16,7 +16,9 @@ Currently the game itself only contains one character (a sphere) which you can c
 # Usage
 Download the release. Unpack the archive, and run the server first.
 > If you run the client first instead, it won't load because it will be waiting until the connection will be established.
+
 Afterwards you can open as much clients as you like.
+
 > Due to collisions, players won't be spawned in a nice way (all clients will tell the server the same spawn position) and therefore will try to push themselves out of each other. They should however end up at different locations eventually.
 
 Alternatively, you can build it yourself. To build the server you'll need `CMake`, and to build the client you'll need `Scons`.
