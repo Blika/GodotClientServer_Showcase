@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbambq5yy6s1c"]
+
+[ext_resource type="Environment" uid="uid://05bsufuki72r" path="res://env/env1.tres" id="4_tw6nb"]
+[ext_resource type="PackedScene" uid="uid://c40nhk274jrpv" path="res://entity/custom_player.tscn" id="5_3j1vg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ro43c"]
+albedo_color = Color(0.380392, 0, 0.380392, 1)
+metallic = 1.0
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_jcbb6"]
+material = SubResource("StandardMaterial3D_ro43c")
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dxgjw"]
+size = Vector3(10, 0.5, 10)
+
+[node name="Main" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00512886, -0.260044, 0.0236206)
+
+[node name="Block1" type="StaticBody3D" parent="World"]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block1"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block1"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Block2" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, -0.0141018, -0.999901, 0, 0.999901, -0.0141018, 0.0293226, 2.81994, -5.2393)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block2"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block2"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Block3" type="StaticBody3D" parent="World"]
+transform = Transform3D(-0.024502, 0.9996, -0.0140976, 0, -0.0141018, -0.999901, -0.9997, -0.0244995, 0.000345522, -5.08217, 2.85469, 0.0874069)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block3"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block3"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Block4" type="StaticBody3D" parent="World"]
+transform = Transform3D(-0.024502, 0.9996, -0.0140976, 0, -0.0141018, -0.999901, -0.9997, -0.0244995, 0.000345522, 5.28969, 2.85469, 0.0649539)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block4"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block4"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Block5" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, -0.0141018, -0.999901, 0, 0.999901, -0.0141018, 0.0293226, 2.81994, 5.09201)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block5"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block5"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Block6" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.52138, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Block6"]
+mesh = SubResource("BoxMesh_jcbb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Block6"]
+shape = SubResource("BoxShape3D_dxgjw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.945734, 0.324941, 0, -0.324941, 0.945734, -0.790995, 2.68669, 4.4204)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.745999, 0.665947, 0, -0.665947, 0.745999, 0, 11.5015, -0.0111446)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_tw6nb")
+
+[node name="Player2" parent="." instance=ExtResource("5_3j1vg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490066, 0)

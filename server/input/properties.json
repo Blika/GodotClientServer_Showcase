@@ -1,0 +1,6 @@
+{
+    "port": 8080,
+    "max_connections": 40,
+    "runtime_sleep": 50,
+    "input_sleep": 200
+}
