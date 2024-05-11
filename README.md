@@ -15,7 +15,7 @@ Currently the game itself only contains one character (a sphere) which you can c
 
 # Usage
 Download the release. Unpack the archive, and run the server first.
-> If you run the client first instead, it won't load because it will be waiting until the connection will be established.
+> If you run the client first instead, it won't load because it will be waiting until the connection is established.
 
 Afterwards you can open as much clients as you like.
 
