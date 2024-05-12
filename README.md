@@ -9,7 +9,7 @@ This server supports multi-threading, meaning it will benefit greatly from multi
 Additionally, you can configure settings in input/settings.json. There you can set the limit for incoming connections (in other words players connected) and sleep time for the main thread (to get a more consistent tickrate).
 
 # Client
-We are using [Godot Game Engine](https://godotengine.org/) as a game client, and [GDExtension](https://docs.godotengine.org/en/stable/tutorials/scripting/gdextension/index.html) to program in C++, so we don't have to use GDScript (native scripting language in Godot).
+We are using [Godot Game Engine](https://godotengine.org/) as a game client, and [GDExtension](https://docs.godotengine.org/en/stable/tutorials/scripting/gdextension/index.html) to use C++, so we don't have to use GDScript (native scripting language in Godot).
 For the time being, the client doesn't have anything fancy. Once again it utilizes other cores of your cpu, for now it's just networking.
 Currently the game itself only contains one character (a sphere) which you can command to jump (on Space) (that movement will be synced across other clients). If you open multiple clients you can see other "players" in your game, and vice versa.
 
