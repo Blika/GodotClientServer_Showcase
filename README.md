@@ -8,8 +8,8 @@ For now, it handles creating and closing sessions (basically a class for connect
 Additionally, you can configure settings in input/settings.json. There you can set the limit for incoming connections (in other words players connected) and sleep time for the main thread (to get a more consistent tickrate).
 
 # Client
-We are using [Godot Game Engine](https://godotengine.org/) as a game client, and [GDExtension](https://docs.godotengine.org/en/stable/tutorials/scripting/gdextension/index.html) to use C++.
-Players can move, jump and kick other players. Movement actions use interpolation so they look nice on the client. All player actions are synced.
+We are using [Godot Game Engine](https://godotengine.org/) as a game client, and [GDExtension](https://docs.godotengine.org/en/stable/tutorials/scripting/gdextension/index.html) to use C++.<br />
+Players can move, jump and kick other players. Movement actions use interpolation so they look nice on the client. All player actions are synced.<br />
 You can open multiple clients to join the server.
 
 # Client Controls
