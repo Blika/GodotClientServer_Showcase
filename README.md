@@ -2,7 +2,7 @@
 A showcase of a working multiplayer game (to some degree) on [Godot Game Engine](https://godotengine.org/) and [RakNet](https://github.com/facebookarchive/RakNet).
 
 # Server
-In this project the server part is written in C++ and uses [RakNet](https://github.com/facebookarchive/RakNet) to handle networking.
+The server part is written in C++ and uses [RakNet](https://github.com/facebookarchive/RakNet) to handle networking.
 For now, it handles creating and closing sessions (basically a class for connections that contains handful functions), managing packets, spawning and syncing player actions across clients.
 
 Additionally, you can configure settings in input/settings.json. There you can set the limit for incoming connections (in other words players connected) and sleep time for the main thread (to get a more consistent tickrate).
