@@ -60,6 +60,14 @@ namespace godotserver{
                     if(!Server::getInstance()->hasSession(&packet->systemAddress)) break;
                     handlePlayerMove();
                     break;
+                case PLAYER_ROTATE:
+                    if(!Server::getInstance()->hasSession(&packet->systemAddress)) break;
+                    handlePlayerRotate();
+                    break;
+                case PLAYER_SEND_ACTION:
+                    if(!Server::getInstance()->hasSession(&packet->systemAddress)) break;
+                    handlePlayerAction();
+                    break;
                 case PLAYER_SEND_TRANSFORM:
                     //client-side
                     break;
@@ -70,6 +78,28 @@ namespace godotserver{
 	    }
     }
 
+    void PacketHandler::handlePlayerAction(){
+        PlayerSendAction pk = PlayerSendAction::decode(packet);
+        switch(pk.action){
+            case ACTION_START_SPRINT:
+                Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->setRunning(true);
+                break;
+            case ACTION_STOP_SPRINT:
+                Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->setRunning(false);
+                break;
+            case ACTION_GET_UP:
+                Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->doGetUp();
+                break;
+            case ACTION_KICK:
+                Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->doKick();
+                break;
+            case ACTION_KNOCK_DOWN:
+                Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->doKnockDown();
+                break;
+        }
+        send_debug("Handled PlayerAction from ",packet->systemAddress.ToString());
+    }
+    
     void PacketHandler::handlePlayerJoin(){
         PlayerJoin pk = PlayerJoin::decode(packet);
         float transform[]{pk.vx, pk.vy, pk.vz, pk.rx, pk.ry, pk.rz};
@@ -86,10 +116,16 @@ namespace godotserver{
     
     void PacketHandler::handlePlayerMove(){
         PlayerMove pk = PlayerMove::decode(packet);
-        float diff[]{pk.dvx, pk.dvy, pk.dvz, pk.drx, pk.dry, pk.drz};
+        float diff[]{pk.dvx, pk.dvy, pk.dvz};
         Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->move(diff[0],diff[1], diff[2]);
-        Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->rotate(diff[3],diff[4], diff[5]);
         //send_debug("Handled PlayerMove from ",packet->systemAddress.ToString());
+    }
+    
+    void PacketHandler::handlePlayerRotate(){
+        PlayerRotate pk = PlayerRotate::decode(packet);
+        float diff[]{pk.rx, pk.ry, pk.rz};
+        Server::getInstance()->getSession(&packet->systemAddress)->getPlayer()->rotate(diff[0],diff[1], diff[2]);
+        //send_debug("Handled PlayerRotate from ",packet->systemAddress.ToString());
     }
     
     unsigned char PacketHandler::getPacketIdentifier(RakNet::Packet *p){

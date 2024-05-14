@@ -62,16 +62,15 @@ int main(){
 		server->run();
 	}catch(const std::exception& e){
 		std::cerr << e.what() << '\n';
-        delete server;
 		#ifdef _WIN32
 			system("pause");
 		#endif
-		return 1;
+		std::exit(0);
 	}
-    delete server;
 	printf("server terminatted\n");
 	#ifdef _WIN32
 		system("pause");
 	#endif
-    return 0;
+	std::exit(0);
+    
 }

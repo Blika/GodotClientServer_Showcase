@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "player_actions.hpp"
 #include "../../raknet/BitStream.h"
 #include "../../raknet/RakString.h"
 #include "../../raknet/MessageIdentifiers.h"
@@ -144,37 +145,63 @@ namespace godot{
     class PlayerMove: public Packet{
         public:
             unsigned char typeId = PLAYER_MOVE;
+            uint32_t id;
             float dvx;
             float dvy;
             float dvz;
-            float drx;
-            float dry;
-            float drz;
-            PlayerMove(float vxx, float vyy, float vzz, float rxx, float ryy, float rzz): dvx{vxx},dvy{vyy},dvz{vzz},drx{rxx},dry{ryy},drz{rzz}{
+            PlayerMove(uint32_t i, float vxx, float vyy, float vzz):  id{i},dvx{vxx},dvy{vyy},dvz{vzz}{
             }
             ~PlayerMove(){
             }
             void encode(RakNet::BitStream* stream){
                 stream->Write(typeId);
+                stream->Write(id);
                 stream->Write(dvx);
                 stream->Write(dvy);
                 stream->Write(dvz);
-                stream->Write(drx);
-                stream->Write(dry);
-                stream->Write(drz);
             }
             static PlayerMove decode(RakNet::Packet* packet){
                 RakNet::BitStream bitStream(packet->data, packet->length, false);
                 unsigned char tid;
-                float dvx,dvy,dvz,drx,dry,drz;
+                uint32_t id;
+                float dvx,dvy,dvz;
                 bitStream.Read(tid);
+                bitStream.Read(id);
                 bitStream.Read(dvx);
                 bitStream.Read(dvy);
                 bitStream.Read(dvz);
-                bitStream.Read(drx);
-                bitStream.Read(dry);
-                bitStream.Read(drz);
-                return PlayerMove(dvx,dvy,dvz,drx,dry,drz);
+                return PlayerMove(id,dvx,dvy,dvz);
+            }
+    };
+    class PlayerRotate: public Packet{
+        public:
+            unsigned char typeId = PLAYER_ROTATE;
+            uint32_t id;
+            float rx;
+            float ry;
+            float rz;
+            PlayerRotate(uint32_t i, float rxx, float ryy, float rzz): id{i},rx{rxx},ry{ryy},rz{rzz}{
+            }
+            ~PlayerRotate(){
+            }
+            void encode(RakNet::BitStream* stream){
+                stream->Write(typeId);
+                stream->Write(id);
+                stream->Write(rx);
+                stream->Write(ry);
+                stream->Write(rz);
+            }
+            static PlayerRotate decode(RakNet::Packet* packet){
+                RakNet::BitStream bitStream(packet->data, packet->length, false);
+                unsigned char tid;
+                uint32_t id;
+                float rx,ry,rz;
+                bitStream.Read(tid);
+                bitStream.Read(id);
+                bitStream.Read(rx);
+                bitStream.Read(ry);
+                bitStream.Read(rz);
+                return PlayerRotate(id,rx,ry,rz);
             }
     };
     class PlayerSendTransform: public Packet{
@@ -215,6 +242,51 @@ namespace godot{
                 bitStream.Read(ry);
                 bitStream.Read(rz);
                 return PlayerSendTransform(id,vx,vy,vz,rx,ry,rz);
+            }
+    };
+    class PlayerSendAction: public Packet{
+        public:
+            unsigned char typeId = PLAYER_SEND_ACTION;
+            uint32_t id;
+            unsigned char action = ACTION_NONE;
+            PlayerSendAction(uint32_t i, unsigned char act): id{i}, action{act}{
+            }
+            ~PlayerSendAction(){
+            }
+            void encode(RakNet::BitStream* stream){
+                stream->Write(typeId);
+                stream->Write(id);
+                stream->Write(action);
+            }
+            static PlayerSendAction decode(RakNet::Packet* packet){
+                RakNet::BitStream bitStream(packet->data, packet->length, false);
+                unsigned char tid, action;
+                uint32_t id;
+                bitStream.Read(tid);
+                bitStream.Read(id);
+                bitStream.Read(action);
+                return PlayerSendAction(id,action);
+            }
+    };
+    class PlayerJoinRespond: public Packet{
+        public:
+            unsigned char typeId = PLAYER_JOIN_RESPOND;
+            uint32_t id;
+            PlayerJoinRespond(uint32_t i): id{i}{
+            }
+            ~PlayerJoinRespond(){
+            }
+            void encode(RakNet::BitStream* stream){
+                stream->Write(typeId);
+                stream->Write(id);
+            }
+            static PlayerJoinRespond decode(RakNet::Packet* packet){
+                RakNet::BitStream bitStream(packet->data, packet->length, false);
+                unsigned char tid;
+                uint32_t id;
+                bitStream.Read(tid);
+                bitStream.Read(id);
+                return PlayerJoinRespond(id);
             }
     };
 }

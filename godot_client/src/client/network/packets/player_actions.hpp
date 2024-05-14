@@ -1,0 +1,10 @@
+#pragma once
+
+enum PlayerActions{
+    ACTION_NONE,
+    ACTION_START_SPRINT,
+    ACTION_STOP_SPRINT,
+    ACTION_KICK,
+    ACTION_KNOCK_DOWN,
+    ACTION_GET_UP
+};

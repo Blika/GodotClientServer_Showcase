@@ -1,6 +1,7 @@
 
 #include "register_types.h"
 #include "godot/player.h"
+#include "godot/model.h"
 #include "godot/entity_player.h"
 #include "client/1client/client.hpp"
 #include <gdextension_interface.h>
@@ -43,6 +44,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level){
 		Engine::get_singleton()->register_singleton("client", client);
 		Engine::get_singleton()->register_singleton("threadpool", threadpool);
 	}
+	ClassDB::register_class<Model>();
 	ClassDB::register_class<Player>();
 	ClassDB::register_class<EntityPlayer>();
 }

@@ -61,13 +61,13 @@ namespace godotserver{
         send_debug("Set thread count to ", std::thread::hardware_concurrency());
         inputThread = threadpool->getLeastBusyThread();
         if(inputThread == -1) inputThread = 0;
-        threadpool->inputThread = inputThread;
+        threadpool->setInputThread(inputThread);
         threadpool->threads[inputThread]->addJob([=,this] {checkInput();});
     }
 
     void Server::shutdownThreadpool(){
+        //delete threadpool;
         threadpool->wait();
-        delete threadpool;
     }
 
     ThreadPool* Server::getThreadPool(){
@@ -102,13 +102,20 @@ namespace godotserver{
         send_debug("Shutting down threadpool...");
         shutdownThreadpool();
         delete packetHandler;
-        delete rakPeer;
+    }
+
+    uint64_t Server::getCurrentTick(){
+        return tickCounter;
     }
 
     void Server::run(){
         while(true){
             if(stopped) break;
             packetHandler->run();
+            for(auto&[n,p]: players){
+                p->tick(tickCounter);
+            }
+            tickCounter++;
             std::this_thread::sleep_for(std::chrono::milliseconds(runtimeSleep));
         }
         shutdown();
@@ -122,7 +129,9 @@ namespace godotserver{
 
     void Server::broadcastPacket(RakNet::BitStream* stream, RakNet::SystemAddress* except){
         for(auto& [sa, s]: sessions){
-            if(s->getSystemAddress() == except) continue;
+            if(*s->getSystemAddress() == *except){
+                continue;
+            }
             s->sendPacket(stream);
         }
     }

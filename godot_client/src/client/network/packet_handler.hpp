@@ -19,17 +19,26 @@ namespace godot{
             void receivePackets();
             void setPlayer(Player* player);
             bool hasPlayerInMap(uint32_t id);
-            void handleConnectionRequestAccepted();
+            void receiveConnectionRequestAccepted();
             void handlePlayerJoin(float vx, float vy, float vz, float rx, float ry, float rz, const char* name);
-            void handlePlayerMove(float vx, float vy, float vz, float rx, float ry, float rz);
-            void handlePlayerSendTransform();
-            void handlePlayerSpawn();
-            void handlePlayerDespawn();
+            void handlePlayerMove(float vx, float vy, float vz);
+            void handlePlayerRotate(float rx, float ry, float rz);
+            void handlePlayerAction(unsigned char action);
+            bool isSpawned();
+            void receivePlayerJoinRespond();
+            void receivePlayerAction();
+            void receivePlayerMove();
+            void receivePlayerRotate();
+            void receivePlayerSendTransform();
+            void receivePlayerSpawn();
+            void receivePlayerDespawn();
         
         private:
             Client* client;
             RakNet::Packet* packet;
             Player* player;
+            uint32_t my_id = -1;
+            bool spawned = false;
             std::unordered_map<uint32_t, EntityPlayer*> players;
             unsigned char getPacketIdentifier(RakNet::Packet *p);
     };

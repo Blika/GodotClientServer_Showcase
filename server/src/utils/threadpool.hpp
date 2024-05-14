@@ -15,6 +15,7 @@ namespace godotserver{
             std::queue<std::function<void()>> jobQueue;
             std::mutex queueMutex;
             std::condition_variable condition;
+            bool shouldWait = true;
 
             void queueLoop(){
                 while(true){
@@ -54,6 +55,14 @@ namespace godotserver{
                 }
             }
 
+            void setShouldWait(bool b){
+                shouldWait = b;
+            }
+
+            bool getShouldWait(){
+                return shouldWait;
+            }
+
             bool isJobQueueEmpty(){
                 return jobQueue.empty();
             }
@@ -78,6 +87,11 @@ namespace godotserver{
         public:
             std::vector<std::unique_ptr<Thread>> threads;
             int inputThread = -1;
+
+            void setInputThread(int i){
+                inputThread = i;
+                threads[i]->setShouldWait(false);
+            }
 
             void setThreadCount(uint32_t count){
                 threads.clear();
@@ -132,6 +146,7 @@ namespace godotserver{
 
             void wait(){
                 for(auto &thread : threads){
+                    if(!thread->getShouldWait()) continue;
                     thread->wait();
                 }
             }

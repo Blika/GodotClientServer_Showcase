@@ -9,3 +9,5 @@ sky_material = SubResource("ProceduralSkyMaterial_2nh05")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_5rjrv")
+sdfgi_enabled = true
+fog_enabled = true

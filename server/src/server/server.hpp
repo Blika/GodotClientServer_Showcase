@@ -27,6 +27,7 @@ namespace godotserver{
             int getAvailableThread();
             void checkInput();
             void shutdown();
+            uint64_t getCurrentTick();
             void run();
             void broadcastPacket(RakNet::BitStream* stream);
             void broadcastPacket(RakNet::BitStream* stream, RakNet::SystemAddress* except);
@@ -51,5 +52,6 @@ namespace godotserver{
             ThreadPool* threadpool = nullptr;
             std::unordered_map<std::string, Session*> sessions{};
             std::unordered_map<std::string, Player*> players{};
+            uint64_t tickCounter = 0;
     };
 }

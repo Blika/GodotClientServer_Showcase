@@ -14,9 +14,11 @@ namespace godotserver{
 
             void run();
             void receivePackets();
+            void handlePlayerAction();
             void handlePlayerJoin();
             void handlePlayerQuit();
             void handlePlayerMove();
+            void handlePlayerRotate();
         
         private:
             RakNet::Packet* packet;

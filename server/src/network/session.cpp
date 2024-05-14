@@ -37,6 +37,7 @@ namespace godotserver{
         player->spawnToAll();
         player->sendPlayers();
         Server::getInstance()->addPlayer(player);
+        handlePlayerJoinRespond();
         send_debug(address.ToString(), "Created player ",player->getRuntimeId(), " (",name,") at ",transform[0]," ",transform[1]," ",transform[2]);
     }
 
@@ -58,6 +59,46 @@ namespace godotserver{
 
     void Session::sendPacket(RakNet::BitStream* stream){
         Server::getInstance()->getRakPeerInterface()->Send(stream, IMMEDIATE_PRIORITY, RELIABLE_ORDERED, 0, address, false);
+    }
+
+    void Session::handlePlayerJoinRespond(){
+        PlayerJoinRespond* pk = new PlayerJoinRespond(player->getRuntimeId());
+        RakNet::BitStream stream;
+        pk->encode(&stream);
+        sendPacket(&stream);
+        delete pk;
+    }
+
+    void Session::handleAction(unsigned char action){
+        PlayerSendAction* pk = new PlayerSendAction(player->getRuntimeId(),action);
+        RakNet::BitStream stream;
+        pk->encode(&stream);
+        Server::getInstance()->broadcastPacket(&stream, &address);
+        delete pk;
+    }
+
+    void Session::handleAction(unsigned char action, Session* s){
+        PlayerSendAction* pk = new PlayerSendAction(player->getRuntimeId(),action);
+        RakNet::BitStream stream;
+        pk->encode(&stream);
+        s->sendPacket(&stream);
+        delete pk;
+    }
+
+    void Session::handleRotate(){
+        PlayerRotate* pk = new PlayerRotate(player->getRuntimeId(),player->getTransform()->rot->x,player->getTransform()->rot->y,player->getTransform()->rot->z);
+        RakNet::BitStream stream;
+        pk->encode(&stream);
+        Server::getInstance()->broadcastPacket(&stream, &address);
+        delete pk;
+    }
+
+    void Session::handleMove(float dx, float dy, float dz){
+        PlayerMove* pk = new PlayerMove(player->getRuntimeId(),dx,dy,dz);
+        RakNet::BitStream stream;
+        pk->encode(&stream);
+        Server::getInstance()->broadcastPacket(&stream, &address);
+        delete pk;
     }
 
     void Session::handleTransform(){

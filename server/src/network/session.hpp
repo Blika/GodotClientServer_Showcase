@@ -25,6 +25,11 @@ namespace godotserver{
             void disconnect();
             void sendPacket(RakNet::BitStream* stream);
 
+            void handlePlayerJoinRespond();
+            void handleAction(unsigned char action);
+            void handleAction(unsigned char action,Session* s);
+            void handleRotate();
+            void handleMove(float dx, float dy, float dz);
             void handleTransform();
             void handleSpawn();
             void handleSpawn(Session* s);

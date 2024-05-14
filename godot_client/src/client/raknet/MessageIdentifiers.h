@@ -433,7 +433,10 @@ enum DefaultMessageIDTypes
 	PLAYER_SPAWN,
 	PLAYER_DESPAWN,
 	PLAYER_MOVE,
-	PLAYER_SEND_TRANSFORM
+	PLAYER_ROTATE,
+	PLAYER_SEND_TRANSFORM,
+	PLAYER_SEND_ACTION,
+	PLAYER_JOIN_RESPOND
 
 	//-------------------------------------------------------------------------------------------------------------
  
