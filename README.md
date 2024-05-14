@@ -13,12 +13,12 @@ Players can move, jump and kick other players. Movement actions use interpolatio
 You can open multiple clients to join the server.
 
 # Client Controls
-W - move forward;
-S - move backward;
-A - move left;
-D - move right;
-Space = jump;
-F = perform a kick;
+W - move forward;<br />
+S - move backward;<br />
+A - move left;<br />
+D - move right;<br />
+Space = jump;<br />
+F = perform a kick;<br />
 Left ctrl - lock/unlock mouse cursor.
 
 # Usage
