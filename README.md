@@ -27,4 +27,4 @@ Download from releases. Unpack the archive, and run the server first.
 
 Afterwards you can open as much clients as you like.
 
-Alternatively, you can build it yourself. To build the server you'll need `CMake`; to build the client you'll need to export the project (`godot_client/demo`) from `Godot`.
+Alternatively, you can build it yourself. To build the server you'll need `CMake` (there are build scripts available); to build the client you'll need to build the libraries using `Scons` (in `godot_client` run cmd `scons platform=windows` for windows libraries) and then export the project (`godot_client/demo`) from `Godot`.
