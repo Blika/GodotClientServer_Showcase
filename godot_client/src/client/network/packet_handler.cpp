@@ -1,9 +1,9 @@
 #include "packet_handler.hpp"
 #include "packets/packets.hpp"
 #include "../1client/client.hpp"
-#include "../../godot/player.h"
-#include "../../godot/model.h"
-#include "../../godot/entity_player.h"
+#include "../../godot/player.hpp"
+#include "../../godot/model.hpp"
+#include "../../godot/entity_player.hpp"
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
@@ -61,7 +61,7 @@ namespace godot{
                     std::cout << "ID_CONNECTION_LOST" << '\n';
                     break;
                 case ID_CONNECTION_REQUEST_ACCEPTED:
-                    receiveConnectionRequestAccepted();
+                    //receiveConnectionRequestAccepted();
                     break;
                 case ID_CONNECTED_PING:
                 case ID_UNCONNECTED_PING:
@@ -209,7 +209,7 @@ namespace godot{
         }
         float transform[]{pk.rx, pk.ry, pk.rz};
         if(pk.id == my_id){
-            player->call_deferred("set_rotation",Vector3(transform[0],transform[1],transform[2]));
+            player->set_rotation(Vector3(transform[0],transform[1],transform[2]));
         }else{
             players[pk.id]->addRotDestination(Vector3(transform[0],transform[1],transform[2]));
             //players[pk.id]->call_deferred("set_rotation",Vector3(transform[0],transform[1],transform[2]));
@@ -224,8 +224,8 @@ namespace godot{
         }
         float transform[]{pk.vx, pk.vy, pk.vz, pk.rx, pk.ry, pk.rz};
         if(pk.id == my_id){
-            player->call_deferred("set_position",Vector3(transform[0],transform[1],transform[2]));
-            player->getModel()->call_deferred("set_rotation",Vector3(transform[3],transform[4],transform[5]));
+            player->set_position(Vector3(transform[0],transform[1],transform[2]));
+            player->getModel()->set_rotation(Vector3(transform[3],transform[4],transform[5]));
         }else{
             players[pk.id]->addPosDestination(Vector3(transform[0],transform[1]+0.7f,transform[2]));
             players[pk.id]->addRotDestination(Vector3(transform[3],transform[4],transform[5]));
@@ -245,9 +245,9 @@ namespace godot{
         Ref<PackedScene> sc = ResourceLoader::get_singleton()->load("res://entity/entity_player.tscn");
         EntityPlayer* pl = (EntityPlayer*) sc->instantiate();
         players[pk.id] = pl;
-        player->get_parent()->call_deferred("add_child", pl);
-        pl->call_deferred("set_position",Vector3(transform[0],transform[1]+0.7f,transform[2]));
-        pl->call_deferred("set_rotation",Vector3(transform[3],transform[4],transform[5]));
+        player->get_parent()->add_child(pl);
+        pl->set_position(Vector3(transform[0],transform[1]+0.7f,transform[2]));
+        pl->set_rotation(Vector3(transform[3],transform[4],transform[5]));
     }
 
     void PacketHandler::receivePlayerDespawn(){
@@ -256,7 +256,7 @@ namespace godot{
             std::cout << "player does not exist5" << '\n';
             return;
         }
-        players[pk.id]->call_deferred("queue_free");
+        players[pk.id]->queue_free();
         players.erase(pk.id);
     }
 

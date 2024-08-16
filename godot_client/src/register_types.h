@@ -1,8 +1,6 @@
 #ifndef EXAMPLE_REGISTER_TYPES_H
 #define EXAMPLE_REGISTER_TYPES_H
 
-void initThreadpool();
-void shutdownThreadpool();
 void initialize_gdextension_types();
 void uninitialize_gdextension_types();
 

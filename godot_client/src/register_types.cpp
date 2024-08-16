@@ -1,8 +1,10 @@
 
 #include "register_types.h"
-#include "godot/player.h"
-#include "godot/model.h"
-#include "godot/entity_player.h"
+#include "godot/player.hpp"
+#include "godot/model.hpp"
+#include "godot/entity_player.hpp"
+#include "godot/main_menu_start.hpp"
+#include "godot/loading_screen.hpp"
 #include "client/1client/client.hpp"
 #include <gdextension_interface.h>
 #include <godot_cpp/classes/engine.hpp>
@@ -14,24 +16,6 @@
 using namespace godot;
 
 Client* client = nullptr;
-ThreadPool* threadpool = nullptr;
-
-void runClient(){
-	client->run();
-}
-
-void initThreadpool(){
-	threadpool = memnew(ThreadPool);
-	threadpool->setThreadCount(std::thread::hardware_concurrency());
-	std::cout << "Set thread count to " << std::thread::hardware_concurrency() << '\n';
-	threadpool->clientThread = threadpool->getLeastBusyThread();
-	if(threadpool->clientThread == -1) threadpool->clientThread = 0;
-	threadpool->threads[threadpool->clientThread]->addJob([=] {runClient();});
-}
-
-void shutdownThreadpool(){
-	threadpool->wait();
-}
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level){
 	if(p_level != MODULE_INITIALIZATION_LEVEL_SCENE){
@@ -40,10 +24,10 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level){
 
 	if(!Engine::get_singleton()->is_editor_hint()){
 		client = memnew(Client);
-		initThreadpool();
 		Engine::get_singleton()->register_singleton("client", client);
-		Engine::get_singleton()->register_singleton("threadpool", threadpool);
 	}
+	ClassDB::register_class<MainMenuStart>();
+	ClassDB::register_class<LoadingScreen>();
 	ClassDB::register_class<Model>();
 	ClassDB::register_class<Player>();
 	ClassDB::register_class<EntityPlayer>();
@@ -54,7 +38,6 @@ void uninitialize_gdextension_types(ModuleInitializationLevel p_level){
 		return;
 	}
 	client->shutdown();
-	shutdownThreadpool();
 }
 
 extern "C"{

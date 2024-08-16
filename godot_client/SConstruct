@@ -40,6 +40,6 @@ else:
         "demo/bin/{}/libgdexample{}{}".format(env["platform"], env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
-
-env.Append(LIBS=["wsock32", "ws2_32"])
+if env["platform"] != "web":
+    env.Append(LIBS=["wsock32", "ws2_32"])
 Default(library)

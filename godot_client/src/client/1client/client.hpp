@@ -2,7 +2,6 @@
 
 #include "../network/packet_handler.hpp"
 #include "../raknet/RakPeerInterface.h"
-#include "../../utility/threadpool.hpp"
 #include <string>
 #include <vector>
 #include <random>
@@ -18,6 +17,7 @@ namespace godot{
 			Client(const Client&) = delete;
 			Client& operator = (const Client&) = delete;
 
+            void startup();
             RakNet::RakPeerInterface* getRakPeerInterface();
             PacketHandler* getPacketHandler();
 			float rnd(float min, float max);
@@ -26,6 +26,7 @@ namespace godot{
             void sendPacket(RakNet::BitStream* stream);
 
         private:
+            bool started = false;
             bool stopped = false;
             int inputThread;
 			std::default_random_engine rnd_eng{std::random_device{}()};

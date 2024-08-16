@@ -1,4 +1,4 @@
-#include "entity_player.h"
+#include "entity_player.hpp"
 #include <godot_cpp/classes/engine.hpp>
 
 using namespace godot;

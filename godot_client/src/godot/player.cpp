@@ -1,6 +1,6 @@
 #include "../register_types.h"
-#include "player.h"
-#include "model.h"
+#include "player.hpp"
+#include "model.hpp"
 #include "../client/1client/client.hpp"
 #include "../client/network/packets/player_actions.hpp"
 #include <godot_cpp/core/class_db.hpp>
@@ -36,9 +36,6 @@ void Player::_bind_methods(){
 Player::Player(){
 	if(!Engine::get_singleton()->is_editor_hint()){
 		client = (Client*) Engine::get_singleton()->get_singleton("client");
-		while(!client->serverFound){
-			std::cout << "waiting for server" << '\n';
-		}
 		client->getPacketHandler()->setPlayer(this);
 		Vector3 pos = get_position();
 		Vector3 rot = get_rotation();
@@ -175,6 +172,13 @@ double Player::getVerticalSensivity(){
 }
 double Player::getHorizontalSensivity(){
 	return sens_y;
+}
+
+void Player::_process(double delta){
+	if(Engine::get_singleton()->is_editor_hint()){
+		return;
+	}
+	client->run();
 }
 
 void Player::_physics_process(double delta){
