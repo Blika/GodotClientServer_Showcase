@@ -28,7 +28,7 @@ namespace godotserver{
         return player;
     }
 
-    void Session::createPlayer(RakNet::RakString name, float transform[]){
+    void Session::createPlayer(const RakNet::RakString& name, float* transform){
         if(player != nullptr){
             send_error(address.ToString()," Player already exists");
             return;
@@ -69,7 +69,7 @@ namespace godotserver{
         delete pk;
     }
 
-    void Session::handleAction(unsigned char action){
+    void Session::handleAction(const unsigned char& action){
         PlayerSendAction* pk = new PlayerSendAction(player->getRuntimeId(),action);
         RakNet::BitStream stream;
         pk->encode(&stream);
@@ -77,7 +77,7 @@ namespace godotserver{
         delete pk;
     }
 
-    void Session::handleAction(unsigned char action, Session* s){
+    void Session::handleAction(const unsigned char& action, Session* s){
         PlayerSendAction* pk = new PlayerSendAction(player->getRuntimeId(),action);
         RakNet::BitStream stream;
         pk->encode(&stream);
@@ -93,7 +93,7 @@ namespace godotserver{
         delete pk;
     }
 
-    void Session::handleMove(float dx, float dy, float dz){
+    void Session::handleMove(const float& dx, const float& dy, const float& dz){
         PlayerMove* pk = new PlayerMove(player->getRuntimeId(),dx,dy,dz);
         RakNet::BitStream stream;
         pk->encode(&stream);

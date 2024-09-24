@@ -20,10 +20,10 @@ namespace godot{
             void setPlayer(Player* player);
             bool hasPlayerInMap(uint32_t id);
             void receiveConnectionRequestAccepted();
-            void handlePlayerJoin(float vx, float vy, float vz, float rx, float ry, float rz, const char* name);
-            void handlePlayerMove(float vx, float vy, float vz);
-            void handlePlayerRotate(float rx, float ry, float rz);
-            void handlePlayerAction(unsigned char action);
+            void handlePlayerJoin(const float& vx, const float& vy, const float& vz, const float& rx, const float& ry, const float& rz, const char* name);
+            void handlePlayerMove(const float& vx, const float& vy, const float& vz);
+            void handlePlayerRotate(const float& rx, const float& ry, const float& rz);
+            void handlePlayerAction(const unsigned char& action);
             bool isSpawned();
             void receivePlayerJoinRespond();
             void receivePlayerAction();

@@ -6,7 +6,7 @@
 
 namespace godotserver{
 
-    RayCast::RayCast(Vector3* s, Vector3* d, float dis, uint32_t i): start{s}, direction{d}, distance{dis}, id{i}{
+    RayCast::RayCast(Vector3* s, Vector3* d, const float& dis, const uint32_t& i): start{s}, direction{d}, distance{dis}, id{i}{
 
     }
 

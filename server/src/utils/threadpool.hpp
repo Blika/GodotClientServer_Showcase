@@ -93,7 +93,7 @@ namespace godotserver{
                 threads[i]->setShouldWait(false);
             }
 
-            void setThreadCount(uint32_t count){
+            void setThreadCount(const uint32_t& count){
                 threads.clear();
                 for (auto i = 0; i < count; i++){
                     threads.push_back(std::make_unique<Thread>());

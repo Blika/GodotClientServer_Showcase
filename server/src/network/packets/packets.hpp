@@ -31,7 +31,7 @@ namespace godotserver{
             float rx;
             float ry;
             float rz;
-            PlayerJoin(RakNet::RakString n, float vxx, float vyy, float vzz, float rxx, float ryy, float rzz): name{n}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
+            PlayerJoin(const RakNet::RakString& n, const float& vxx, const float& vyy, const float& vzz, const float& rxx, const float& ryy, const float& rzz): name{n}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
             }
             ~PlayerJoin(){
             }
@@ -88,7 +88,7 @@ namespace godotserver{
             float rx;
             float ry;
             float rz;
-            PlayerSpawn(uint32_t i, RakNet::RakString n, float vxx, float vyy, float vzz, float rxx, float ryy, float rzz): id{i}, name{n}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
+            PlayerSpawn(const uint32_t& i, const RakNet::RakString& n, const float& vxx, const float& vyy, const float& vzz, const float& rxx, const float& ryy, const float& rzz): id{i}, name{n}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
             }
             ~PlayerSpawn(){
             }
@@ -149,7 +149,7 @@ namespace godotserver{
             float dvx;
             float dvy;
             float dvz;
-            PlayerMove(uint32_t i, float vxx, float vyy, float vzz):  id{i},dvx{vxx},dvy{vyy},dvz{vzz}{
+            PlayerMove(const uint32_t& i, const float& vxx, const float& vyy, const float& vzz):  id{i},dvx{vxx},dvy{vyy},dvz{vzz}{
             }
             ~PlayerMove(){
             }
@@ -180,7 +180,7 @@ namespace godotserver{
             float rx;
             float ry;
             float rz;
-            PlayerRotate(uint32_t i, float rxx, float ryy, float rzz): id{i},rx{rxx},ry{ryy},rz{rzz}{
+            PlayerRotate(const uint32_t& i, const float& rxx, const float& ryy, const float& rzz): id{i},rx{rxx},ry{ryy},rz{rzz}{
             }
             ~PlayerRotate(){
             }
@@ -214,7 +214,7 @@ namespace godotserver{
             float rx;
             float ry;
             float rz;
-            PlayerSendTransform(uint32_t i, float vxx, float vyy, float vzz, float rxx, float ryy, float rzz): id{i}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
+            PlayerSendTransform(const uint32_t& i, const float& vxx, const float& vyy, const float& vzz, const float& rxx, const float& ryy, const float& rzz): id{i}, vx{vxx},vy{vyy},vz{vzz},rx{rxx},ry{ryy},rz{rzz}{
             }
             ~PlayerSendTransform(){
             }
@@ -249,7 +249,7 @@ namespace godotserver{
             unsigned char typeId = PLAYER_SEND_ACTION;
             uint32_t id;
             unsigned char action = ACTION_NONE;
-            PlayerSendAction(uint32_t i, unsigned char act): id{i}, action{act}{
+            PlayerSendAction(const uint32_t& i, const unsigned char& act): id{i}, action{act}{
             }
             ~PlayerSendAction(){
             }
@@ -272,7 +272,7 @@ namespace godotserver{
         public:
             unsigned char typeId = PLAYER_JOIN_RESPOND;
             uint32_t id;
-            PlayerJoinRespond(uint32_t i): id{i}{
+            PlayerJoinRespond(const uint32_t& i): id{i}{
             }
             ~PlayerJoinRespond(){
             }

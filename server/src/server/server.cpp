@@ -160,7 +160,7 @@ namespace godotserver{
         return true;
     }
 
-    bool Server::closeSession(std::string address){
+    bool Server::closeSession(const std::string& address){
         if(!sessions.contains(address)){
             return false;
         }

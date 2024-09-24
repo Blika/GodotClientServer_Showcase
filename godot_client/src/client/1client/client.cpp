@@ -45,7 +45,7 @@ namespace godot{
         return packetHandler;
     }
 
-	float Client::rnd(float min, float max){
+	float Client::rnd(const float& min, const float& max){
 		std::uniform_real_distribution<float> rnd_dist(min,max);
 		return rnd_dist(rnd_eng);
 	}

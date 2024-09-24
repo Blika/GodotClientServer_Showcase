@@ -65,12 +65,12 @@ void EntityPlayer::playIdleAnimation(){
 	}
 }
 
-void EntityPlayer::addPosDestination(Vector3 p){
+void EntityPlayer::addPosDestination(Vector3& p){
     pot = p;
     hasPot = true;
 }
 
-void EntityPlayer::addRotDestination(Vector3 p){
+void EntityPlayer::addRotDestination(Vector3& p){
     rot = p;
     hasRot = true;
 }

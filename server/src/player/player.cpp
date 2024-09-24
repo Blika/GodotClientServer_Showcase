@@ -9,7 +9,7 @@
 
 namespace godotserver{
 
-    Player::Player(Session* s, RakNet::RakString n, float t[]): session{s}, name{n}{
+    Player::Player(Session* s, const RakNet::RakString& n, float* t): session{s}, name{n}{
         id = getNextRuntimeId();
         transform = new Transform(t);
         lastTick = Server::getInstance()->getCurrentTick();
@@ -53,14 +53,14 @@ namespace godotserver{
         return direction;
     }
 
-    void Player::move(float mx, float my, float mz){
+    void Player::move(const float& mx, const float& my, const float& mz){
         transform->pos->x += mx;
         transform->pos->y += my;
         transform->pos->z += mz;
         session->handleMove(transform->pos->x,transform->pos->y,transform->pos->z);
     }
 
-    void Player::rotate(float rx, float ry, float rz){
+    void Player::rotate(const float& rx, const float& ry, const float& rz){
         transform->rot->x = rx;
         transform->rot->y = ry;
         transform->rot->z = rz;
@@ -95,7 +95,7 @@ namespace godotserver{
         }
     }
 
-    void Player::tick(uint64_t currentTick){
+    void Player::tick(const uint64_t& currentTick){
         uint64_t tickDiff = currentTick - lastTick;
         if(tickDiff < 1){
             return;

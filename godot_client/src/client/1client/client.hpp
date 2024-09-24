@@ -20,7 +20,7 @@ namespace godot{
             void startup();
             RakNet::RakPeerInterface* getRakPeerInterface();
             PacketHandler* getPacketHandler();
-			float rnd(float min, float max);
+			float rnd(const float& min, const float& max);
             void shutdown();
             void run();
             void sendPacket(RakNet::BitStream* stream);

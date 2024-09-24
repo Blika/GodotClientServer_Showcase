@@ -35,7 +35,7 @@ namespace godotserver{
             Session* getSession(RakNet::SystemAddress* address);
             void startSession(RakNet::SystemAddress* address);
             bool closeSession(RakNet::SystemAddress* address);
-            bool closeSession(std::string address);
+            bool closeSession(const std::string& address);
             bool hasPlayer(const char* name);
             std::unordered_map<std::string, Player*>* getPlayers();
             void addPlayer(Player* player);

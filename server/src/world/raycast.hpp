@@ -8,7 +8,7 @@ namespace godotserver{
     class RayCast{
 
         public:
-            RayCast(Vector3* start, Vector3* direction, float distance, uint32_t id);
+            RayCast(Vector3* start, Vector3* direction, const float& distance, const uint32_t& id);
             ~RayCast();
 			RayCast(const RayCast&) = delete;
 			RayCast& operator = (const RayCast&) = delete;

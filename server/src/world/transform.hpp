@@ -12,11 +12,11 @@ namespace godotserver{
 
 			Transform();
 			Transform(Vector3* v, Rotation* r): pos{v}, rot{r}{}
-			Transform(float vx, float vy, float vz, float rx, float ry, float rz){
+			Transform(const float& vx, const float& vy, const float& vz, const float& rx, const float& ry, const float& rz){
                 pos = new Vector3(vx,vy,vz);
                 rot = new Rotation(rx,ry,rz);
             }
-			Transform(float data[6]){
+			Transform(float* data){
                 pos = new Vector3(data[0],data[1],data[2]);
                 rot = new Rotation(data[3],data[4],data[5]);
             }

@@ -10,7 +10,7 @@ namespace godotserver{
         public:
             bool hasSpawned = false;
 			Player();
-			Player(Session* s, RakNet::RakString name, float transform[]);
+			Player(Session* s, const RakNet::RakString& name, float* transform);
 			~Player();
 			Player(const Player&) = delete;
 			Player& operator = (const Player&) = delete;
@@ -21,14 +21,14 @@ namespace godotserver{
             Transform* getTransform();
             void setTransform(Transform* transform);
 		    Vector3* getDirectionVector();
-            void move(float mx, float my, float mz);
-            void rotate(float rx, float ry, float rz);
+            void move(const float& mx, const float& my, const float& mz);
+            void rotate(const float& rx, const float& ry, const float& rz);
             void despawnFromAll();
             void spawnToAll();
             void despawnFrom(Session* s);
             void spawnTo(Session* s);
             void sendPlayers();
-            void tick(uint64_t currentTick);
+            void tick(const uint64_t& currentTick);
             bool isCrowdControlled();
             void setRunning(bool v);
             bool isRunning();

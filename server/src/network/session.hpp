@@ -20,16 +20,16 @@ namespace godotserver{
             RakNet::SystemAddress* getSystemAddress();
             bool hasPlayer();
             Player* getPlayer();
-            void createPlayer(RakNet::RakString name, float trasnform[]);
+            void createPlayer(const RakNet::RakString& name, float* trasnform);
             void destroyPlayer();
             void disconnect();
             void sendPacket(RakNet::BitStream* stream);
 
             void handlePlayerJoinRespond();
-            void handleAction(unsigned char action);
-            void handleAction(unsigned char action,Session* s);
+            void handleAction(const unsigned char& action);
+            void handleAction(const unsigned char& action,Session* s);
             void handleRotate();
-            void handleMove(float dx, float dy, float dz);
+            void handleMove(const float& dx, const float& dy, const float& dz);
             void handleTransform();
             void handleSpawn();
             void handleSpawn(Session* s);

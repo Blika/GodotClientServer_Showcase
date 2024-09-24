@@ -110,7 +110,7 @@ namespace godot{
         client->serverFound = true;
     }
 
-    void PacketHandler::handlePlayerJoin(float vx, float vy, float vz, float rx, float ry, float rz, const char* name){
+    void PacketHandler::handlePlayerJoin(const float& vx, const float& vy, const float& vz, const float& rx, const float& ry, const float& rz, const char* name){
         PlayerJoin* pk = new PlayerJoin(RakNet::RakString(name),vx,vy,vz,rx,ry,rz);
         RakNet::BitStream stream;
         pk->encode(&stream);
@@ -118,7 +118,7 @@ namespace godot{
         delete pk;
     }
 
-    void PacketHandler::handlePlayerMove(float vx, float vy, float vz){
+    void PacketHandler::handlePlayerMove(const float& vx, const float& vy, const float& vz){
         PlayerMove* pk = new PlayerMove(my_id, vx,vy,vz);
         RakNet::BitStream stream;
         pk->encode(&stream);
@@ -126,7 +126,7 @@ namespace godot{
         delete pk;
     }
 
-    void PacketHandler::handlePlayerRotate(float rx, float ry, float rz){
+    void PacketHandler::handlePlayerRotate(const float& rx, const float& ry, const float& rz){
         PlayerRotate* pk = new PlayerRotate(my_id, rx,ry,rz);
         RakNet::BitStream stream;
         pk->encode(&stream);
@@ -134,7 +134,7 @@ namespace godot{
         delete pk;
     }
 
-    void PacketHandler::handlePlayerAction(unsigned char action){
+    void PacketHandler::handlePlayerAction(const unsigned char& action){
         PlayerSendAction* pk = new PlayerSendAction(my_id,action);
         RakNet::BitStream stream;
         pk->encode(&stream);
