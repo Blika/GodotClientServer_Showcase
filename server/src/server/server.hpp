@@ -24,7 +24,6 @@ namespace godotserver{
             void initThreadpool();
             void shutdownThreadpool();
             ThreadPool* getThreadPool();
-            int getAvailableThread();
             void checkInput();
             void shutdown();
             uint64_t getCurrentTick();

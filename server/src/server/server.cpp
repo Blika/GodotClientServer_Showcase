@@ -5,7 +5,7 @@
 #include "../player/player.hpp"
 #include "../network/session.hpp"
 #include "../network/packet_handler.hpp"
-#include "../utils/threadpool.hpp"
+#include "../threadpool/threadpool.hpp"
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
@@ -56,27 +56,16 @@ namespace godotserver{
     }
 
     void Server::initThreadpool(){
-        threadpool = new ThreadPool;
-        threadpool->setThreadCount(std::thread::hardware_concurrency());
-        send_debug("Set thread count to ", std::thread::hardware_concurrency());
-        inputThread = threadpool->getLeastBusyThread();
-        if(inputThread == -1) inputThread = 0;
-        threadpool->setInputThread(inputThread);
-        threadpool->threads[inputThread]->addJob([=,this] {checkInput();});
+        threadpool = new ThreadPool();
+        threadpool->assignNewTask(std::bind(&Server::checkInput, this), -1);
     }
 
     void Server::shutdownThreadpool(){
-        //delete threadpool;
-        threadpool->wait();
+        delete threadpool;
     }
 
     ThreadPool* Server::getThreadPool(){
         return threadpool;
-    }
-
-    int Server::getAvailableThread(){
-        if(threadpool == nullptr) return -1;
-        return threadpool->getLeastBusyNonInputThread();
     }
 
     void Server::checkInput(){
